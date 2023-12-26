@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모듈 정보 입력</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>모듈 정보 입력</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">홈(모듈 정보 작성)</a></li>
+                <li><a href="modulelist.html">모듈 정보 확인</a></li>
+                <li><a href="https://ko.qr-code-generator.com/" target="_blank">QR코드 발급하기</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="module-info-form">
+        <h2>모듈 정보 입력</h2>
+        <form id="module-form" action="/app.js" method="POST">
+            <label for="volume">용량 (W):</label>
+            <input type="text" id="volume" name="volume" required><br><br>
+
+            <label for="company">제조 회사:</label>
+            <input type="text" id="company" name="company" required><br><br>
+
+            <label for="collplant">수거된 발전소 정보:</label>
+            <input type="text" id="collplant" name="collplant"><br><br>
+
+            <label for="startyear">발전 사업 개시 년도:</label>
+            <input type="text" id="startyear" name="startyear"><br><br>
+
+            <label for="regdate">모듈 등록 날짜:</label>
+            <input type="date" id="regdate" name="regdate" required><br><br>
+
+            <label for="efficiency">잔여 효율(%):</label>
+            <input type="text" id="efficiency" name="efficiency"><br><br>
+
+            <label for="record">모듈 판매 이력:</label>
+            <input type="text" id="record" name="record"><br><br>
+
+            <label for="selldate">판매 또는 출고 날짜:</label>
+            <input type="date" id="selldate" name="selldate"><br><br>
+
+            <label for="installloc">설치 장소:</label>
+            <input type="text" id="installloc" name="installloc"><br><br>
+
+            <button type="submit">저장</button>
+        </form>
+    </section>
+
+    <footer>
+        <img src="images/logo_uenergy.png" alt="logo" width="180" height="65">
+    </footer>
+</body>
+</html>

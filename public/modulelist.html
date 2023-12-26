@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모듈 정보 확인</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>모듈 정보 입력</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">홈(모듈 정보 작성)</a></li>
+                <li><a href="modulelist.html">모듈 정보 확인</a></li>
+                <li><a href="https://ko.qr-code-generator.com/" target="_blank">QR코드 발급하기</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="module-list">
+        <h2>모듈 목록</h2>
+        <label for="module-select">모듈 선택:</label>
+        <select id="module-select"></select>
+        <button id="show-module-button">선택한 모듈 정보 보기</button>
+    </section>
+
+    <!-- JSP -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const moduleSelect = document.getElementById("module-select");
+            const showModuleButton = document.getElementById("show-module-button");
+
+            // 서버 목록 fetch 요청
+            fetch("/api/modules") //서버 엔드포인트
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(module => {
+                        const option = document.createElement("option");
+                        option.value = module.id;
+                        option.textContent = `모듈 ID: ${module.id}, 용량: ${module.volume}, 제조 회사: ${module.company}`;
+                        moduleSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('데이터 가져오기 오류: ' + error.message);
+                });
+
+            // 버튼클릭 다른페이지
+            showModuleButton.addEventListener("click", function() {
+                const selectedModuleId = moduleSelect.value;
+                if (selectedModuleId) {
+                    // id 부여 후 이동
+                    window.location.href = `/moduleinfo.html?id=${selectedModuleId}`;
+                }
+            });
+        });
+    </script>
+    <footer>
+        <img src="images/logo_uenergy.png" alt="logo" width="180" height="65">
+    </footer>
+</body>
+</html>

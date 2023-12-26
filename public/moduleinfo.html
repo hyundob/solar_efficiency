@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모듈 정보 입력</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>모듈 정보 입력</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">홈(모듈 정보 작성)</a></li>
+                <li><a href="modulelist.html">모듈 정보 확인</a></li>
+                <li><a href="https://ko.qr-code-generator.com/" target="_blank">QR코드 발급하기</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="module-details">
+        <h2>선택한 모듈 정보</h2>
+        <div id="selected-module-info"></div>
+    </section>
+
+    <!-- JSP -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const selectedModuleInfo = document.getElementById("selected-module-info");
+
+            // 모듈 id 가져오기
+            const params = new URLSearchParams(window.location.search);
+            const selectedModuleId = params.get("id");
+
+            // fetch 요청
+            fetch(`/api/module?id=${selectedModuleId}`) // 엔드 포인트
+                .then(response => response.json())
+                .then(module => {
+                    // 모듈 정보 표시
+                    selectedModuleInfo.innerHTML = `
+                        <p><strong>모듈 ID:</strong> ${module.id}</p>
+                        <p><strong>용량:</strong> ${module.volume}</p>
+                        <p><strong>제조 회사:</strong> ${module.company}</p>
+                        <p><strong>수거된 발전소 정보:</strong> ${module.collplant}</p>
+                        <p><strong>발전 사업 개시 년도:</strong> ${module.startyear}</p>
+                        <p><strong>모듈 등록 날짜:</strong> ${formatDate(module.regdate)}</p>
+                        <p><strong>잔여 효율(%):</strong> ${module.efficiency}</p>
+                        <p><strong>모듈 판매 이력:</strong> ${module.record}</p>
+                        <p><strong>판매 또는 출고 날짜:</strong> ${formatDate(module.selldate)}</p>
+                        <p><strong>설치 장소:</strong> ${module.installloc}</p>
+                    `;
+                })
+                .catch(error => {
+                    console.error('모듈 정보 가져오기 오류: ' + error.message);
+                });
+
+                function formatDate(dateString) {
+                    const options = { year: 'numeric', month: '2-digit', day: '2-digit'};
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString('ko-KR',options);
+                }
+        });
+    </script>
+    <footer>
+        <img src="images/logo_uenergy.png" alt="logo" width="180" height="65">
+    </footer>
+</body>
+</html>
